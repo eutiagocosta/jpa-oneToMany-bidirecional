@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import com.example.domain.produto.Produto;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 public class NotaFiscal {
@@ -29,6 +30,7 @@ public class NotaFiscal {
 	private String nomeEmissor;
 	
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy="notafiscal")
+	@JsonBackReference
 	private List<Produto> produtos;
 
 	public NotaFiscal(NotaFiscalId notafiscalId, String chave, String nomeEmissor) {
@@ -37,10 +39,16 @@ public class NotaFiscal {
 		this.nomeEmissor = nomeEmissor;
 	}
 	
+	public NotaFiscal(NotaFiscalId notaFiscalId, String chave, String nomeEmissor, List<Produto> produtos) {
+		this.notafiscalId = notaFiscalId;
+		this.chave = chave;
+		this.nomeEmissor = nomeEmissor;
+		this.produtos = produtos;
+	}
+	
 	@SuppressWarnings("unused")
 	private NotaFiscal(){}
 
-	
 	public Produto adicionarProduto(Produto produto){
 		if (produtos == null)
 			this.produtos = new ArrayList<>();

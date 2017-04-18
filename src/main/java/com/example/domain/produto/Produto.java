@@ -9,6 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import com.example.domain.notafiscal.NotaFiscal;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Produto {
@@ -24,6 +25,7 @@ public class Produto {
 	
 	@ManyToOne
 	@JoinColumn(name = "ID_NOTAFISCAL", nullable = false)
+	@JsonManagedReference
 	private NotaFiscal notafiscal;
 	
 	public Produto(ProdutoId produtoId, String nome, NotaFiscal notafiscal) {
@@ -59,10 +61,10 @@ public class Produto {
 		this.notafiscal = notafiscal;
 	}
 
-	/*@Override
+	@Override
 	public String toString() {
 		return "Produto [id=" + id + ", produtoId=" + produtoId + ", nome=" + nome + ", notafiscal=" + notafiscal + "]";
-	}*/
+	}
 
 }
 
